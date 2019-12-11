@@ -19,6 +19,7 @@ getAvailableTags = function() {
     "differentiable", "non-differentiable",
     "low-conditioned", "moderate-conditioned", "highly-conditioned",
     "adequate-global-structure", "weak-global-structure",
-    "single-objective", "multi-objective"
+    "single-objective", "multi-objective",
+    "noisy"
   )
 }
