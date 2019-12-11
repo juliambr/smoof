@@ -137,7 +137,12 @@ autoplot.smoof_function = function(x,
 
   if (n.numeric == 1L) {
     pl = ggplot(grid, aes_string(x = par.names[numeric.idx], y = "y")) + geom_line()
+
+    if ("smoof_noisy_single_objective_function" %in% class(x)) {
+      pl = pl + geom_ribbon(data = grid, aes_string(x = par.names[numeric.idx], ymin = "ymin", ymax = "ymax"), alpha = 0.4, fill = "gray")
+    }
   }
+
   if (n.numeric == 2L) {
     pl = ggplot(grid, aes_string(x = par.names[numeric.idx[1L]], y = par.names[numeric.idx[2L]]))
     if (render.levels) {

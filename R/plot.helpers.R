@@ -128,8 +128,16 @@ generateDataframeForGGPlot2 = function(fun, length.out = 50L) {
   #FIXME: check if one of the parameters is named "y"
 
   grid2 = dfRowsToList(par.set = par.set, df = grid, enforce.col.types = TRUE)
-  grid[, "y"] = sapply(grid2, fun)
+  if ("smoof_noisy_single_objective_function" %in% class(fun)) {
+    grid[, "noisevar"] = apply(grid, 1, function(x) getNoiseVarianceFunction(fun)(x))
+    grid[, "y"] = sapply(grid2, getMeanFunction(fun))
+    grid[, "ymin"] = grid[, "y"] - grid[, "noisevar"] 
+    grid[, "ymax"] = grid[, "y"] + grid[, "noisevar"]
 
+  } else {
+    grid[, "y"] = sapply(grid2, fun)
+  }
+  
   return(grid)
 }
 
